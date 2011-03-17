@@ -10,16 +10,16 @@ exports.httpClient = (process.env.IG_USE_INSECURE ? require('http') : require('h
 exports.apiHost = process.env.IG_API_HOST || 'api.instagram.com';
 exports.apiPort = process.env.IG_API_PORT || null;
 exports.basePath = process.env.IG_BASE_PATH || '';
-exports.REDIS_PORT = 6486;
+exports.REDIS_PORT = 6379;
 exports.REDIS_HOST = '127.0.0.1';
 
 app.set('view engine', 'jade');
 
 app.configure(function(){
     app.use(express.methodOverride());
-	app.use(express.bodyDecoder());
+  app.use(express.bodyParser());
     app.use(app.router);
-    app.use(express.staticProvider(__dirname + '/public/'));
+    app.use(express.static(__dirname + '/public/'));
 });
 app.configure('development', function(){
     app.use(express.logger());
